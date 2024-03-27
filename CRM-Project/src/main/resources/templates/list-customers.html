@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Customers List</title>
+</head>
+<body>
+	<div id="wrapper" align="center">
+		<div id="header">
+			<h2>CRM-Customer Relationship manager</h2>
+		</div>
+	</div>
+
+	<div id="container" align="center">
+		<div id="content">
+
+			<!-- Put new button to add Customer -->
+			<input type="button" value="Add Customer"
+				onclick="window.location.href='./showForm'; return false;"
+				class=" add-button" />
+
+			<table>
+				<thead>
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Email</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="customer : ${customers}">
+
+						<td th:text="${customer.firstName}"></td>
+						<td th:text="${customer.lastName}"></td>
+						<td th:text="${customer.email}"></td>
+						<td><th:block
+								th:with="updateLink='./showFormUpdate?customerId=' + ${customer.id}">
+								<a th:href="${updateLink}">UPDATE</a>
+							</th:block> <th:block
+								th:with="deleteLink='./showFormForDelete?customerId=' + ${customer.id}">
+								<a th:href="${deleteLink}"
+									onclick="if(!(confirm('Are you sure you want to delete?')))return false;">DELETE</a>
+							</th:block></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
